@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Adulting Skills Assessment - 25 Questions</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+    color: #222;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.instructions {
+    background: #eef4ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.student-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.student-info input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.question {
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+}
+
+.question h3 {
+    margin-top: 0;
+    line-height: 1.4;
+}
+
+.option {
+    display: block;
+    padding: 12px;
+    margin: 8px 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option:hover {
+    background: #eef4ff;
+    border-color: #2563eb;
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+}
+
+.submit-button:hover {
+    background: #1d4ed8;
+}
+
+#results {
+    display: none;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 10px;
+    background: #eef6ff;
+    text-align: center;
+}
+
+#score {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+#level {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.category-results {
+    text-align: left;
+    margin-top: 25px;
+}
+
+.category-results div {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.print-button {
+    margin-top: 20px;
+    background: #444;
+}
+
+.print-button:hover {
+    background: #222;
+}
+
+@media (max-width: 700px) {
+
+    .student-info {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+}
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .container {
+        box-shadow: none;
+    }
+
+    .submit-button,
+    .print-button {
+        display: none;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Adulting Skills Assessment</h1>
+
+<div class="subtitle">
+    Scenario & Judgment Assessment — 25 Questions / 125 Points
+</div>
+
+<div class="instructions">
+
+<strong>Directions:</strong><br>
+Read each situation carefully and select the response that demonstrates
+the strongest adult decision-making and judgment.
+
+<br><br>
+
+<strong>Scoring:</strong><br>
+Each question is worth 1–5 points.
+The most responsible response is worth 5 points.
+
+</div>
+
+<div class="student-info">
+
+<input
+    type="text"
+    id="studentName"
+    placeholder="Student Name"
+>
+
+<input
+    type="text"
+    id="studentClass"
+    placeholder="Class / Hour"
+>
+
+</div>
+
+<div id="quiz"></div>
+
+<button
+    class="submit-button"
+    onclick="submitQuiz()"
+>
+Submit Assessment
+</button>
+
+<div id="results">
+
+<h2>Assessment Results</h2>
+
+<div id="studentResult"></div>
+
+<div id="score"></div>
+
+<div id="level"></div>
+
+<div class="category-results">
+
+<h3>Category Scores</h3>
+
+<div id="categoryScores"></div>
+
+</div>
+
+<button
+    class="submit-button print-button"
+    onclick="window.print()"
+>
+Print Results
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const questions = [
+
+/* =========================
+   RESPONSIBILITY
+========================= */
+
+{
+category: "Responsibility & Accountability",
+
+question:
+"You make a mistake at work that could cost the company money. What should you do?",
+
+answers: [
+
+["Hide the mistake and hope nobody notices.", 1],
+
+["Blame the situation on someone else.", 2],
+
+["Wait to see if someone discovers it.", 3],
+
+["Try to correct the mistake yourself and tell your supervisor if necessary.", 4],
+
+["Tell your supervisor immediately, accept responsibility, and help correct the problem.", 5]
+
+]
+},
+
+{
+category: "Responsibility & Accountability",
+
+question:
+"You forgot about an important assignment that is due today. What is the most responsible response?",
+
+answers: [
+
+["Pretend you did not know about it.", 1],
+
+["Make an excuse.", 2],
+
+["Turn in whatever you have without saying anything.", 3],
+
+["Tell the teacher and ask what you can do to make up the work.", 4],
+
+["Take responsibility, communicate honestly, accept the consequence, and make a plan to prevent it from happening again.", 5]
+
+]
+},
+
+{
+category: "Responsibility & Accountability",
+
+question:
+"You are given instructions for a task but are not sure exactly what your supervisor wants. What should you do?",
+
+answers: [
+
+["Guess what they meant.", 1],
+
+["Ignore the task until someone explains it.", 2],
+
+["Ask another employee what they think.", 3],
+
+["Start the task and ask questions if you get stuck.", 4],
+
+["Politely ask your supervisor for clarification before beginning so you understand the expectations.", 5]
+
+]
+},
+
+
+/* =========================
+   COMMUNICATION
+========================= */
+
+{
+category: "Communication & Conflict",
+
+question:
+"A coworker sends you an angry text about something that happened at work. What should you do?",
+
+answers: [
+
+["Send an angry response immediately.", 1],
+
+["Forward the message to other coworkers.", 2],
+
+["Ignore the person completely.", 3],
+
+["Wait until you are calm and respond professionally.", 4],
+
+["Take time to understand the issue, remain calm, and address the concern directly and professionally.", 5]
+
+]
+},
+
+{
+category: "Communication & Conflict",
+
+question:
+"You disagree with your supervisor's decision. What is the best response?",
+
+answers: [
+
+["Refuse to follow the decision.", 1],
+
+["Complain about the supervisor to coworkers.", 2],
+
+["Follow the decision but remain upset about it.", 3],
+
+["Respectfully explain your concern.", 4],
+
+["Respectfully explain your concern, listen to the supervisor's reasoning, and offer a possible solution.", 5]
+
+]
+},
+
+{
+category: "Communication & Conflict",
+
+question:
+"Someone keeps interrupting you during an important conversation. What should you do?",
+
+answers: [
+
+["Interrupt them back.", 1],
+
+["Raise your voice.", 2],
+
+["Walk away without saying anything.", 3],
+
+["Ask politely to finish speaking.", 4],
+
+["Calmly explain that you would like to finish your thought and then give them your full attention.", 5]
+
+]
+},
+
+
+/* =========================
+   TIME MANAGEMENT
+========================= */
+
+{
+category: "Time Management",
+
+question:
+"You have a major project due Friday and several other responsibilities this week. What should you do?",
+
+answers: [
+
+["Wait until Thursday night.", 1],
+
+["Work on it only when you feel like it.", 2],
+
+["Start it sometime later in the week.", 3],
+
+["Make a basic plan and work on it throughout the week.", 4],
+
+["Break the project into smaller tasks, schedule specific work times, and leave extra time for unexpected problems.", 5]
+
+]
+},
+
+{
+category: "Time Management",
+
+question:
+"You have four assignments due the same week. What is the best strategy?",
+
+answers: [
+
+["Wait until the night before.", 1],
+
+["Do whichever assignment sounds easiest.", 2],
+
+["Complete assignments in random order.", 3],
+
+["Make a schedule based on deadlines and estimated difficulty.", 4],
+
+["Prioritize the assignments, estimate the time required, schedule them across the week, and build in extra time.", 5]
+
+]
+},
+
+{
+category: "Time Management",
+
+question:
+"You feel overwhelmed by everything you need to accomplish. What should you do?",
+
+answers: [
+
+["Ignore the responsibilities.", 1],
+
+["Complain about how much work you have.", 2],
+
+["Keep doing everything exactly the same way.", 3],
+
+["Make a list and prioritize the most important tasks.", 4],
+
+["List everything, prioritize it, create a realistic schedule, and adjust lower-priority commitments when necessary.", 5]
+
+]
+},
+
+
+/* =========================
+   FINANCES
+========================= */
+
+{
+category: "Financial Responsibility",
+
+question:
+"You receive your first full-time paycheck. What is the best approach?",
+
+answers: [
+
+["Spend most of it immediately.", 1],
+
+["Buy something expensive that you want.", 2],
+
+["Pay your bills and spend the rest.", 3],
+
+["Create a basic budget and save some money.", 4],
+
+["Create a budget covering necessities, savings, emergency funds, debt, and reasonable personal spending.", 5]
+
+]
+},
+
+{
+category: "Financial Responsibility",
+
+question:
+"Your monthly expenses are greater than your income. What should you do?",
+
+answers: [
+
+["Use credit cards to cover everything.", 1],
+
+["Borrow money from friends.", 2],
+
+["Ignore the problem for now.", 3],
+
+["Look for expenses you can reduce.", 4],
+
+["Review your entire budget, reduce unnecessary expenses, increase income when possible, and create a sustainable plan.", 5]
+
+]
+},
+
+{
+category: "Financial Responsibility",
+
+question:
+"You want to purchase a $1,200 laptop but only have $500 saved. What is the best choice?",
+
+answers: [
+
+["Put the entire purchase on a credit card.", 1],
+
+["Borrow money from several friends.", 2],
+
+["Buy it immediately because you need it.", 3],
+
+["Wait and save more money while comparing options.", 4],
+
+["Research alternatives, determine whether you truly need it, create a savings plan, and purchase it when financially appropriate.", 5]
+
+]
+},
+
+
+/* =========================
+   CREDIT
+========================= */
+
+{
+category: "Credit & Debt",
+
+question:
+"You have a credit card balance that you cannot pay off each month. What should you do?",
+
+answers: [
+
+["Keep using the card because you still have available credit.", 1],
+
+["Open another credit card.", 2],
+
+["Continue making only minimum payments.", 3],
+
+["Stop unnecessary spending and begin paying down the balance.", 4],
+
+["Stop unnecessary credit spending, create a repayment plan, reduce the balance, and avoid adding new debt.", 5]
+
+]
+},
+
+{
+category: "Credit & Debt",
+
+question:
+"A loan has a very low monthly payment. What should you investigate before accepting it?",
+
+answers: [
+
+["Only the monthly payment.", 1],
+
+["Whether a friend thinks it is a good deal.", 2],
+
+["How quickly you can get the money.", 3],
+
+["The interest rate and length of the loan.", 4],
+
+["The interest rate, total repayment amount, fees, loan length, and whether the payment fits your budget.", 5]
+
+]
+},
+
+
+/* =========================
+   WORKPLACE
+========================= */
+
+{
+category: "Workplace Skills",
+
+question:
+"You realize you are going to be late for work. What should you do?",
+
+answers: [
+
+["Say nothing.", 1],
+
+["Ask a coworker to cover for you.", 2],
+
+["Arrive late and explain if someone asks.", 3],
+
+["Contact your supervisor when you know you will be late.", 4],
+
+["Contact your supervisor as soon as possible, explain honestly, provide an estimated arrival time, and take responsibility.", 5]
+
+]
+},
+
+{
+category: "Workplace Skills",
+
+question:
+"You are assigned a task you have never done before. What should you do?",
+
+answers: [
+
+["Pretend you know how to do it.", 1],
+
+["Refuse to do it.", 2],
+
+["Wait for someone else to do it.", 3],
+
+["Ask questions and make an effort to learn.", 4],
+
+["Ask clarifying questions, learn the expectations, seek appropriate resources, and make a responsible attempt.", 5]
+
+]
+},
+
+{
+category: "Workplace Skills",
+
+question:
+"Your workload has become too large and you are struggling to complete everything. What should you do?",
+
+answers: [
+
+["Stop doing some of the work without telling anyone.", 1],
+
+["Complain to coworkers.", 2],
+
+["Work longer hours without communicating the problem.", 3],
+
+["Tell your supervisor that you are having difficulty managing the workload.", 4],
+
+["Discuss the workload with your supervisor, explain the specific challenges, and work together to establish priorities.", 5]
+
+]
+},
+
+
+/* =========================
+   RELATIONSHIPS
+========================= */
+
+{
+category: "Relationships & Emotional Regulation",
+
+question:
+"You are extremely angry during an argument. What should you do?",
+
+answers: [
+
+["Say whatever comes to mind.", 1],
+
+["Send an angry text.", 2],
+
+["Continue arguing until the other person gives in.", 3],
+
+["Ask for some time to cool down.", 4],
+
+["Calmly explain that you need a break, regulate your emotions, and return to the conversation when you can communicate respectfully.", 5]
+
+]
+},
+
+{
+category: "Relationships & Emotional Regulation",
+
+question:
+"A friend repeatedly asks to borrow money but has not repaid you. What should you do?",
+
+answers: [
+
+["Keep giving them money.", 1],
+
+["Become angry and insult them.", 2],
+
+["Stop talking to them without explanation.", 3],
+
+["Tell them respectfully that you cannot continue lending money.", 4],
+
+["Set a clear boundary, communicate respectfully, and avoid lending money you cannot afford to lose.", 5]
+
+]
+},
+
+{
+category: "Relationships & Emotional Regulation",
+
+question:
+"Someone asks you to do something that makes you uncomfortable. What should you do?",
+
+answers: [
+
+["Agree so they will not be upset.", 1],
+
+["Get angry at them.", 2],
+
+["Avoid the person.", 3],
+
+["Politely say that you are not comfortable doing it.", 4],
+
+["Clearly communicate your boundary, remain respectful, and suggest an appropriate alternative when possible.", 5]
+
+]
+},
+
+
+/* =========================
+   INDEPENDENT LIVING
+========================= */
+
+{
+category: "Independent Living",
+
+question:
+"You are signing your first apartment lease. What should you do before signing?",
+
+answers: [
+
+["Sign it quickly before someone else gets the apartment.", 1],
+
+["Only look at the monthly rent.", 2],
+
+["Ask your friends if they think it looks okay.", 3],
+
+["Read the lease carefully.", 4],
+
+["Read and understand the rent, fees, rules, maintenance responsibilities, deposits, lease length, and other important terms before signing.", 5]
+
+]
+},
+
+{
+category: "Independent Living",
+
+question:
+"You notice a water leak in your apartment. What should you do?",
+
+answers: [
+
+["Ignore it.", 1],
+
+["Wait a few days to see if it stops.", 2],
+
+["Put a towel down and deal with it later.", 3],
+
+["Report the leak to the landlord or property manager.", 4],
+
+["Report it immediately, take reasonable steps to limit damage, document the issue, and follow up until it is addressed.", 5]
+
+]
+},
+
+
+/* =========================
+   DIGITAL
+========================= */
+
+{
+category: "Digital Responsibility",
+
+question:
+"You receive a text saying your bank account will be closed unless you click a link. What should you do?",
+
+answers: [
+
+["Click the link immediately.", 1],
+
+["Enter your banking information to verify your account.", 2],
+
+["Forward the message to friends.", 3],
+
+["Delete the message and contact your bank if you are concerned.", 4],
+
+["Do not use the link; instead, contact the bank through its official website, app, or phone number to verify the message.", 5]
+
+]
+},
+
+{
+category: "Digital Responsibility",
+
+question:
+"You discover that you use the same password for nearly every account. What should you do?",
+
+answers: [
+
+["Continue using the same password.", 1],
+
+["Give the password to someone you trust.", 2],
+
+["Write the password on your desk.", 3],
+
+["Change your most important accounts to stronger passwords.", 4],
+
+["Use unique strong passwords, enable multi-factor authentication where available, and use a reputable password manager if appropriate.", 5]
+
+]
+},
+
+
+/* =========================
+   ADVANCED DECISION MAKING
+========================= */
+
+{
+category: "Advanced Decision-Making",
+
+question:
+"You have an important adult decision to make but are unsure what to do. What is the strongest approach?",
+
+answers: [
+
+["Choose the fastest option.", 1],
+
+["Avoid making the decision.", 2],
+
+["Ask someone else to decide for you.", 3],
+
+["Gather information and consider your options.", 4],
+
+["Gather reliable information, identify alternatives, consider short- and long-term consequences, seek appropriate advice, and make an informed decision.", 5]
+
+]
+}
+
+];
+
+
+// =========================
+// BUILD QUIZ
+// =========================
+
+const quizContainer = document.getElementById("quiz");
+
+questions.forEach((q, index) => {
+
+    const questionDiv = document.createElement("div");
+
+    questionDiv.className = "question";
+
+    let html =
+        `<h3>${index + 1}. ${q.question}</h3>`;
+
+    q.answers.forEach((answer, answerIndex) => {
+
+        html += `
+        <label class="option">
+
+            <input
+                type="radio"
+                name="question${index}"
+                value="${answer[1]}"
+            >
+
+            ${String.fromCharCode(65 + answerIndex)}.
+            ${answer[0]}
+
+        </label>
+        `;
+
+    });
+
+    questionDiv.innerHTML = html;
+
+    quizContainer.appendChild(questionDiv);
+
+});
+
+
+// =========================
+// SUBMIT QUIZ
+// =========================
+
+function submitQuiz() {
+
+    const studentName =
+        document.getElementById("studentName").value.trim();
+
+    const studentClass =
+        document.getElementById("studentClass").value.trim();
+
+    if (!studentName) {
+
+        alert("Please enter the student's name.");
+
+        return;
+    }
+
+
+    let totalScore = 0;
+
+    let categoryScores = {};
+
+    let categoryTotals = {};
+
+
+    for (let index = 0; index < questions.length; index++) {
+
+        const selected =
+            document.querySelector(
+                `input[name="question${index}"]:checked`
+            );
+
+        if (!selected) {
+
+            alert(
+                `Please answer Question ${index + 1}.`
+            );
+
+            return;
+        }
+
+
+        const points =
+            parseInt(selected.value);
+
+
+        totalScore += points;
+
+
+        const category =
+            questions[index].category;
+
+
+        if (!categoryScores[category]) {
+
+            categoryScores[category] = 0;
+
+            categoryTotals[category] = 0;
+
+        }
+
+
+        categoryScores[category] += points;
+
+        categoryTotals[category] += 5;
+
+    }
+
+
+    // =========================
+    // READINESS LEVEL
+    // =========================
+
+    let level = "";
+
+
+    if (totalScore >= 113) {
+
+        level =
+            "Highly Developed Adult Skills";
+
+    }
+
+    else if (totalScore >= 100) {
+
+        level =
+            "Strong Adult Readiness";
+
+    }
+
+    else if (totalScore >= 88) {
+
+        level =
+            "Proficient / Ready for Increasing Independence";
+
+    }
+
+    else if (totalScore >= 75) {
+
+        level =
+            "Developing Independence";
+
+    }
+
+    else if (totalScore >= 60) {
+
+        level =
+            "Needs Additional Development";
+
+    }
+
+    else {
+
+        level =
+            "Significant Skill Development Needed";
+
+    }
+
+
+    // =========================
+    // DISPLAY RESULTS
+    // =========================
+
+    document.getElementById("studentResult").innerHTML =
+
+        `<strong>${studentName}</strong><br>
+         ${studentClass}`;
+
+
+    document.getElementById("score").innerHTML =
+
+        `${totalScore} / 125`;
+
+
+    document.getElementById("level").innerHTML =
+
+        level;
+
+
+    // =========================
+    // CATEGORY SCORES
+    // =========================
+
+    let categoryHTML = "";
+
+
+    for (const category in categoryScores) {
+
+        const score =
+            categoryScores[category];
+
+        const possible =
+            categoryTotals[category];
+
+
+        const percentage =
+            Math.round(
+                (score / possible) * 100
+            );
+
+
+        categoryHTML += `
+
+        <div>
+
+            <strong>${category}</strong>
+
+            — ${score} / ${possible}
+
+            (${percentage}%)
+
+        </div>
+
+        `;
+
+    }
+
+
+    document.getElementById("categoryScores").innerHTML =
+        categoryHTML;
+
+
+    document.getElementById("results").style.display =
+        "block";
+
+
+    window.scrollTo({
+
+        top: document.body.scrollHeight,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
